@@ -36,7 +36,7 @@ class graphite_web(
     ensure  => present,
     source  => "${prefix}/conf/graphite.wsgi.example",
     require => Exec['install_graphite_web'],
-    notify  => Class['uwsgi'],
+    notify  => Service['uwsgi'],
   }
 
   uwsgi::manage_app { 'graphite':
@@ -49,7 +49,7 @@ class graphite_web(
       'wsgi-file' => '/opt/graphite/conf/graphite.wsgi',
       'plugins' => 'python',
     },
-    notify  => Class['uwsgi'],
+    notify  => Service['uwsgi'],
   }
 
   nginx::resource::vhost { 'graphite':
@@ -72,13 +72,13 @@ class graphite_web(
       Exec['install_graphite_web'],
       Exec['create_database'],
     ],
-    notify  => Class['uwsgi'],
+    notify  => Service['uwsgi'],
   }
 
   file { "${prefix}/webapp/graphite/local_settings.py":
     ensure  => present,
     content => template('graphite_web/local_settings.py.erb'),
-    notify  => Class['uwsgi'],
+    notify  => Service['uwsgi'],
   }
 
 }
