@@ -73,7 +73,7 @@ class graphite_web(
 
   file { "${prefix}/webapp/graphite/local_settings.py":
     ensure  => present,
-    content => template('graphite/local_settings.py.erb'),
+    content => template('graphite_web/local_settings.py.erb'),
   }
 
 }
