@@ -3,6 +3,7 @@ class graphite_web(
   $source = 'https://github.com/graphite-project/graphite-web.git',
   $source_path = '/usr/local/src/graphite-web',
   $revision = 'master',
+  $data_dirs = undef,
 ) {
 
   include nginx
