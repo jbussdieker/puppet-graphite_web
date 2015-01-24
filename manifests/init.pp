@@ -5,6 +5,9 @@ class graphite_web(
   $revision = 'master',
 ) {
 
+  include nginx
+  include uwsgi
+
   package { 'python-cairo': }
   package { 'python-django': }
   package { 'python-django-tagging': }
@@ -44,7 +47,15 @@ class graphite_web(
       'processes' => 4,
       'wsgi-file' => '/opt/graphite/conf/graphite.wsgi',
       'plugins' => 'python',
-    }
+    },
+  }
+
+  nginx::resource::vhost { 'graphite':
+    listen_port         => '8080',
+    location_custom_cfg => {
+      'uwsgi_pass' => '127.0.0.1:8081',
+      'include'    => 'uwsgi_params',
+    },
   }
 
   file { [
@@ -53,10 +64,11 @@ class graphite_web(
     #"${prefix}/storage/log",
     "${prefix}/storage/log/webapp"
   ]:
-    ensure => directory,
-    owner  => 'www-data',
-    group  => 'www-data',
-    mode   => 0755,
+    ensure  => directory,
+    owner   => 'www-data',
+    group   => 'www-data',
+    mode    => 0755,
+    require => Exec['install_graphite_web'],
   }
 
 }
