@@ -7,13 +7,6 @@ class graphite::config(
     content => template('graphite/local_settings.py.erb'),
   }
 
-#  file { "${prefix}/conf/graphite.wsgi":
-#    ensure  => present,
-#    source  => "${prefix}/conf/graphite.wsgi.example",
-#    #content => template('graphite/graphite.wsgi.erb'),
-#    notify  => Class['uwsgi'],
-#  }
-
 #  file { [
 #    "${prefix}/storage",
 #    "${prefix}/storage/whisper",

@@ -29,4 +29,10 @@ class graphite_web(
     require => Exec['install_graphite_web'],
   }
 
+  file { "${prefix}/conf/graphite.wsgi":
+    ensure  => present,
+    source  => "${prefix}/conf/graphite.wsgi.example",
+    require => Exec['install_graphite_web'],
+  }
+
 }
