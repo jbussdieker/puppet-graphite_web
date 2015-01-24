@@ -75,7 +75,7 @@
 #WHISPER_DIR = '/opt/graphite/storage/whisper'
 #RRD_DIR = '/opt/graphite/storage/rrd'
 <% if @data_dirs %>
-DATA_DIRS = [<%= @data_dirs.join(",")]
+DATA_DIRS = [<%= @data_dirs.join(", ") %>]
 <% else %>
 #DATA_DIRS = [WHISPER_DIR, RRD_DIR] # Default: set from the above variables
 <% end %>
