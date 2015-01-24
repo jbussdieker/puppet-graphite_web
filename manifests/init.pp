@@ -72,7 +72,10 @@ class graphite_web(
     ],
   }
 
-  file { "${prefix}/storage/log/webapp":
+  file { [
+    "${prefix}/storage",
+    "${prefix}/storage/log/webapp",
+  ]:
     ensure  => directory,
     owner   => 'www-data',
     group   => 'www-data',
