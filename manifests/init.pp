@@ -79,6 +79,7 @@ class graphite_web(
     ensure  => present,
     content => template('graphite_web/local_settings.py.erb'),
     notify  => Service['uwsgi'],
+    require => Exec['install_graphite_web'],
   }
 
 }
