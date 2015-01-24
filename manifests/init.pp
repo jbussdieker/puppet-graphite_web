@@ -35,8 +35,8 @@ class graphite_web(
   file { "${prefix}/conf/graphite.wsgi":
     ensure  => present,
     source  => "${prefix}/conf/graphite.wsgi.example",
-    require => Exec['install_graphite_web'],
     notify  => Service['uwsgi'],
+    require => Exec['install_graphite_web'],
   }
 
   uwsgi::manage_app { 'graphite':
@@ -60,19 +60,25 @@ class graphite_web(
     },
   }
 
-  file { [
-    "${prefix}/storage/graphite.db",
-    "${prefix}/storage/log/webapp",
-  ]:
-    ensure  => directory,
+  file { "${prefix}/storage/graphite.db":
+    ensure  => file,
     owner   => 'www-data',
     group   => 'www-data',
-    mode    => 0755,
+    mode    => 0644,
+    notify  => Service['uwsgi'],
     require => [
       Exec['install_graphite_web'],
       Exec['create_database'],
     ],
+  }
+
+  file { "${prefix}/storage/log/webapp":
+    ensure  => directory,
+    owner   => 'www-data',
+    group   => 'www-data',
+    mode    => 0755,
     notify  => Service['uwsgi'],
+    require => Exec['install_graphite_web'],
   }
 
   file { "${prefix}/webapp/graphite/local_settings.py":
