@@ -7,16 +7,4 @@ class graphite::config(
     content => template('graphite/local_settings.py.erb'),
   }
 
-#  file { [
-#    "${prefix}/storage",
-#    "${prefix}/storage/whisper",
-#    "${prefix}/storage/log",
-#    "${prefix}/storage/log/webapp"
-#  ]:
-#    ensure => directory,
-#    owner  => 'www-data',
-#    group  => 'www-data',
-#    mode   => 0755,
-#  }
-
 }

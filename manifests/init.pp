@@ -35,4 +35,28 @@ class graphite_web(
     require => Exec['install_graphite_web'],
   }
 
+  uwsgi::manage_app { 'graphite':
+    ensure => 'present',
+    uid    => 'www-data',
+    gid    => 'www-data',
+    config => {
+      'socket' => ':8081',
+      'processes' => 4,
+      'wsgi-file' => '/opt/graphite/conf/graphite.wsgi',
+      'plugins' => 'python',
+    }
+  }
+
+  file { [
+    #"${prefix}/storage",
+    #"${prefix}/storage/whisper",
+    #"${prefix}/storage/log",
+    "${prefix}/storage/log/webapp"
+  ]:
+    ensure => directory,
+    owner  => 'www-data',
+    group  => 'www-data',
+    mode   => 0755,
+  }
+
 }
