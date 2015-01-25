@@ -5,6 +5,7 @@ class graphite_web(
   $revision = 'master',
   $data_dirs = undef,
   $cluster_servers = undef,
+  $carbonlink_hosts = undef,
 ) {
 
   include uwsgi
