@@ -4,7 +4,7 @@ class graphite_web(
   $source_path = '/usr/local/src/graphite-web',
   $revision = 'master',
   $data_dirs = undef,
-  $cluster_servers = under,
+  $cluster_servers = undef,
 ) {
 
   include uwsgi
