@@ -6,8 +6,11 @@ class graphite_web(
   $data_dirs = undef,
 ) {
 
-  include nginx
   include uwsgi
+
+  class { 'nginx':
+    manage_repo => false,
+  }
 
   package { 'python-cairo': }
   package { 'python-django': }
