@@ -19,6 +19,7 @@ class graphite_web(
   package { 'python-cairo': }
   package { 'python-django': }
   package { 'python-django-tagging': }
+  package { 'python-tz': }
 
   vcsrepo { $source_path:
     ensure   => present,
