@@ -5,6 +5,7 @@ describe 'graphite_web class' do
   let(:manifest) {
     <<-EOS
     class { 'graphite_web':
+      revision => '0.9.x',
     }
     EOS
   }
