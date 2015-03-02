@@ -8,6 +8,12 @@
   "project_page": "http://github.com/jbussdieker/puppet-graphite_web",
   "issues_url": "https://github.com/jbussdieker/puppet-graphite_web/issues",
   "description": "This module can be used for basic Graphite management",
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [ "14.04" ]
+    }
+  ],
   "requirements": [
     {
       "name": "puppet",
