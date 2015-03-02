@@ -1,0 +1,11 @@
+{
+  "name": "jbussdieker-graphite_web",
+  "version": "0.0.2",
+  "author": "Joshua Bussdieker",
+  "license": "MIT",
+  "summary": "Puppet Graphite management module",
+  "source": "http://github.com/jbussdieker/puppet-graphite_web",
+  "project_page": "http://github.com/jbussdieker/puppet-graphite_web",
+  "issues_url": "https://github.com/jbussdieker/puppet-graphite_web/issues",
+  "description": "This module can be used for basic Graphite management"
+}
