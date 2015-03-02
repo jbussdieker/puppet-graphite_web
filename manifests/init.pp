@@ -1,3 +1,5 @@
+# == Class: graphite_web
+#
 class graphite_web(
   $prefix = '/opt/graphite',
   $source = 'https://github.com/graphite-project/graphite-web.git',
@@ -53,12 +55,12 @@ class graphite_web(
     uid    => 'www-data',
     gid    => 'www-data',
     config => {
-      'socket' => ':8081',
+      'socket'    => ':8081',
       'processes' => 4,
       'wsgi-file' => '/opt/graphite/conf/graphite.wsgi',
-      'plugins' => 'python',
+      'plugins'   => 'python',
     },
-    notify  => Service['uwsgi'],
+    notify => Service['uwsgi'],
   }
 
   nginx::resource::vhost { 'graphite':
@@ -73,7 +75,7 @@ class graphite_web(
     ensure  => file,
     owner   => 'www-data',
     group   => 'www-data',
-    mode    => 0644,
+    mode    => '0644',
     notify  => Service['uwsgi'],
     require => [
       Exec['install_graphite_web'],
@@ -88,7 +90,7 @@ class graphite_web(
     ensure  => directory,
     owner   => 'www-data',
     group   => 'www-data',
-    mode    => 0755,
+    mode    => '0755',
     notify  => Service['uwsgi'],
     require => Exec['install_graphite_web'],
   }
