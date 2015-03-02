@@ -1,0 +1,6 @@
+fixtures:
+  repositories:
+    stdlib: git://github.com/puppetlabs/puppetlabs-stdlib.git
+    vcsrepo: git://github.com/puppetlabs/puppetlabs-vcsrepo.git
+  symlinks:
+    graphite_web: "#{source_dir}"

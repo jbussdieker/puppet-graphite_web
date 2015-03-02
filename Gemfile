@@ -7,8 +7,7 @@ group :development, :unit_tests do
 end
 
 group :system_tests do
-  gem 'beaker', '2.4.1', :require => false
-  gem 'beaker-rspec', '5.0.1', :require => false
+  gem 'beaker-rspec', :require => false
   gem 'serverspec', :require => false
 end
 
