@@ -8,6 +8,15 @@
   "project_page": "http://github.com/jbussdieker/puppet-graphite_web",
   "issues_url": "https://github.com/jbussdieker/puppet-graphite_web/issues",
   "description": "This module can be used for basic Graphite management",
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": "3.x"
+    }
+  ],
+  "dependencies": [
+    { "name": "puppetlabs/vcsrepo", "version": ">= 1.2.0" }
+  ],
   "tags": [
     "whisper",
     "graphite",

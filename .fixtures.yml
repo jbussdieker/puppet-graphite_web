@@ -1,6 +1,9 @@
 fixtures:
   repositories:
+    concat: git://github.com/puppetlabs/puppetlabs-concat.git
     stdlib: git://github.com/puppetlabs/puppetlabs-stdlib.git
     vcsrepo: git://github.com/puppetlabs/puppetlabs-vcsrepo.git
+    uwsgi: git://github.com/vaijab/puppet-uwsgi.git
+    nginx: git://github.com/jfryman/puppet-nginx.git
   symlinks:
     graphite_web: "#{source_dir}"
