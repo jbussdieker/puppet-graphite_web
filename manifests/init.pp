@@ -10,6 +10,7 @@ class graphite_web(
   $carbonlink_hosts = undef,
   $whisper_dir = undef,
   $time_zone = undef,
+  $user = 'www-data',
 ) {
 
   include uwsgi
@@ -52,8 +53,8 @@ class graphite_web(
 
   uwsgi::manage_app { 'graphite':
     ensure => 'present',
-    uid    => 'www-data',
-    gid    => 'www-data',
+    uid    => $user,
+    gid    => $user,
     config => {
       'socket'    => ':8081',
       'processes' => 4,
@@ -73,8 +74,8 @@ class graphite_web(
 
   file { "${prefix}/storage/graphite.db":
     ensure  => file,
-    owner   => 'www-data',
-    group   => 'www-data',
+    owner   => $user,
+    group   => $user,
     mode    => '0644',
     notify  => Service['uwsgi'],
     require => [
@@ -83,13 +84,10 @@ class graphite_web(
     ],
   }
 
-  file { [
-    "${prefix}/storage",
-    "${prefix}/storage/log/webapp",
-  ]:
+  file { "${prefix}/storage/log/webapp":
     ensure  => directory,
-    owner   => 'www-data',
-    group   => 'www-data',
+    owner   => $user,
+    group   => $user,
     mode    => '0755',
     notify  => Service['uwsgi'],
     require => Exec['install_graphite_web'],
