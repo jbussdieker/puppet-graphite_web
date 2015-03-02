@@ -19,6 +19,8 @@ RSpec.configure do |c|
     hosts.each do |host|
       on host, puppet('module', 'install', 'puppetlabs-git'), { :acceptable_exit_codes => [0,1] }
       on host, puppet('module', 'install', 'puppetlabs-vcsrepo'), { :acceptable_exit_codes => [0,1] }
+      on host, puppet('module', 'install', 'jfryman-nginx'), { :acceptable_exit_codes => [0,1] }
+      on host, puppet('module', 'install', 'zooz-uwsgi'), { :acceptable_exit_codes => [0,1] }
       apply_manifest(%{
         include git
       })
