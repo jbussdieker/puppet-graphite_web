@@ -10,6 +10,9 @@ class graphite_web(
   $carbonlink_hosts = undef,
   $whisper_dir = undef,
   $time_zone = undef,
+  $dbfile = '/opt/graphite/storage/graphite.db',
+  $index_file = undex,
+  $rrd_dir = undef,
   $user = 'www-data',
 ) {
 
@@ -36,12 +39,6 @@ class graphite_web(
     command => "/usr/bin/python setup.py install --prefix ${prefix}",
     creates => "${prefix}/webapp",
     require => Vcsrepo[$source_path],
-  }
-
-  exec { 'create_database':
-    command => "/usr/bin/python ${prefix}/webapp/graphite/manage.py syncdb --noinput",
-    creates => "${prefix}/storage/graphite.db",
-    require => Exec['install_graphite_web'],
   }
 
   file { "${prefix}/conf/graphite.wsgi":
@@ -72,18 +69,6 @@ class graphite_web(
     },
   }
 
-  file { "${prefix}/storage/graphite.db":
-    ensure  => file,
-    owner   => $user,
-    group   => $user,
-    mode    => '0644',
-    notify  => Service['uwsgi'],
-    require => [
-      Exec['install_graphite_web'],
-      Exec['create_database'],
-    ],
-  }
-
   file { "${prefix}/storage/log/webapp":
     ensure  => directory,
     owner   => $user,
@@ -98,6 +83,21 @@ class graphite_web(
     content => template('graphite_web/local_settings.py.erb'),
     notify  => Service['uwsgi'],
     require => Exec['install_graphite_web'],
+  }
+
+  exec { 'create_database':
+    command => "/usr/bin/python ${prefix}/webapp/graphite/manage.py syncdb --noinput",
+    creates => $dbfile,
+    require => File["${prefix}/webapp/graphite/local_settings.py"],
+  }
+
+  file { $dbfile:
+    ensure  => file,
+    owner   => $user,
+    group   => $user,
+    mode    => '0644',
+    notify  => Service['uwsgi'],
+    require => Exec['create_database'],
   }
 
 }

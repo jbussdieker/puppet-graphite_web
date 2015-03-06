@@ -81,14 +81,22 @@ WHISPER_DIR = '<%= @whisper_dir %>'
 <% else -%>
 #WHISPER_DIR = '/opt/graphite/storage/whisper'
 <% end -%>
+<% if @rrd_dir -%>
+RRD_DIR = '<%= @rrd_dir %>'
+<% else -%>
 #RRD_DIR = '/opt/graphite/storage/rrd'
+<% end -%>
 <% if @data_dirs -%>
 DATA_DIRS = [<%= @data_dirs.collect {|dd| "'#{dd}'"}.join(", ") %>]
 <% else -%>
 #DATA_DIRS = [WHISPER_DIR, RRD_DIR] # Default: set from the above variables
 <% end -%>
 #LOG_DIR = '/opt/graphite/storage/log/webapp'
+<% if @index_file -%>
+INDEX_FILE = '<%= @index_file %>'  # Search index file
+<% else -%>
 #INDEX_FILE = '/opt/graphite/storage/index'  # Search index file
+<% end -%>
 
 
 #####################################
@@ -159,17 +167,17 @@ DATA_DIRS = [<%= @data_dirs.collect {|dd| "'#{dd}'"}.join(", ") %>]
 # The default is 'django.db.backends.sqlite3' with file 'graphite.db'
 # located in STORAGE_DIR
 #
-#DATABASES = {
-#    'default': {
-#        'NAME': '/opt/graphite/storage/graphite.db',
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'USER': '',
-#        'PASSWORD': '',
-#        'HOST': '',
-#        'PORT': ''
-#    }
-#}
-#
+DATABASES = {
+    'default': {
+        'NAME': '<%= @dbfile %>',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': ''
+    }
+}
+
 
 
 #########################

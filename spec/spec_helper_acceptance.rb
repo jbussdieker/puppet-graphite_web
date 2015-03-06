@@ -1,8 +1,10 @@
 require 'beaker-rspec'
 
-foss_opts = { :default_action => 'gem_install' }
+unless ENV["BEAKER_provision"] == "no"
+  foss_opts = { :default_action => 'gem_install' }
 
-install_puppet(foss_opts)
+  install_puppet(foss_opts)
+end
 
 RSpec.configure do |c|
   # Project root
