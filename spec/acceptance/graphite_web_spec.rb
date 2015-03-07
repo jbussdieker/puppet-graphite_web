@@ -21,12 +21,21 @@ describe 'graphite_web class' do
       ensure => directory,
       owner  => 'www-data',
       group  => 'www-data',
+      mode   => '0755',
+    }
+    ->
+    file { '/tmp/foo/index':
+      ensure => file,
+      owner  => 'www-data',
+      group  => 'www-data',
+      mode   => '0644',
     }
     ->
     file { '/tmp/foo/rrd':
       ensure => directory,
       owner  => 'www-data',
       group  => 'www-data',
+      mode   => '0755',
     }
     ->
     class { 'graphite_web':
@@ -50,6 +59,24 @@ describe 'graphite_web class' do
     it 'should be hosting on port 8080' do
       shell("/usr/bin/curl localhost:8080", {:acceptable_exit_codes => 0}) do |r|
         expect(r.stdout).to match("Graphite Browser")
+      end
+    end
+
+    it 'should be able to render json' do
+      shell("curl localhost:8080/render?format=json", {:acceptable_exit_codes => 0}) do |r|
+        expect(r.stdout).to eq("[]")
+      end
+    end
+
+    it 'should be able to render png' do
+      shell("curl localhost:8080/render?format=png", {:acceptable_exit_codes => 0}) do |r|
+        expect(r.stdout).to match("PNG")
+      end
+    end
+
+    it 'should be able to render metrics' do
+      shell("curl \"localhost:8080/render?target=carbon.*.*.*\"", {:acceptable_exit_codes => 0}) do |r|
+        expect(r.stdout).to match("PNG")
       end
     end
   end

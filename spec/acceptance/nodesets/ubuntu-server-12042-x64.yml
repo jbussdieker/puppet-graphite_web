@@ -7,5 +7,6 @@ HOSTS:
     box_url: http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-12042-x64-vbox4210-nocm.box
     hypervisor: vagrant
 CONFIG:
-  log_level: info
+  log_level: trace
+  trace_limit: 1000
   type: foss
