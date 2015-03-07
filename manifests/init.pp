@@ -89,10 +89,10 @@ class graphite_web(
   }
 
   uwsgi::manage_app { 'graphite':
-    ensure => 'present',
-    uid    => $user,
-    gid    => $user,
-    config => {
+    ensure  => 'present',
+    uid     => $user,
+    gid     => $user,
+    config  => {
       'socket'    => ':8081',
       'processes' => 4,
       'wsgi-file' => '/opt/graphite/conf/graphite.wsgi',
