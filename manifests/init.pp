@@ -58,7 +58,10 @@ class graphite_web(
     require => Exec['install_graphite_web'],
   }
 
-  file { "${prefix}/storage/log/webapp":
+  file { [
+      "${prefix}/storage",
+      "${prefix}/storage/log/webapp",
+    ]:
     ensure  => directory,
     owner   => $user,
     group   => $user,
