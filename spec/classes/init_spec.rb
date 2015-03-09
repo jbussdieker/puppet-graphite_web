@@ -13,7 +13,7 @@ describe 'graphite_web' do
 
     context '14.04' do
       let(:operatingsystemmajrelease) { '14.04' }
-      it { should have_resource_count(61) }
+      it { should have_resource_count(62) }
     end
   end
 end
