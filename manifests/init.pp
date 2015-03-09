@@ -11,7 +11,7 @@ class graphite_web(
   $whisper_dir = undef,
   $time_zone = undef,
   $dbfile = '/opt/graphite/storage/graphite.db',
-  $index_file = undex,
+  $index_file = undef,
   $rrd_dir = undef,
   $user = 'www-data',
 ) {
