@@ -4,45 +4,20 @@ describe 'graphite_web class' do
   let(:prefix) { "/opt/graphite" }
   let(:manifest) {
     <<-EOS
-    class { 'whisper::source':
-      revision => '0.9.x',
+    class { 'whisper':
+      ensure => '0.9.x',
     }
-    ->
+
     class { 'carbon':
       revision => '0.9.x',
-      user     => 'www-data',
       caches   => {
         'a' => {
         },
       },
     }
-    ->
-    file { '/tmp/foo':
-      ensure => directory,
-      owner  => 'www-data',
-      group  => 'www-data',
-      mode   => '0755',
-    }
-    ->
-    file { '/tmp/foo/index':
-      ensure => file,
-      owner  => 'www-data',
-      group  => 'www-data',
-      mode   => '0644',
-    }
-    ->
-    file { '/tmp/foo/rrd':
-      ensure => directory,
-      owner  => 'www-data',
-      group  => 'www-data',
-      mode   => '0755',
-    }
-    ->
+
     class { 'graphite_web':
       revision   => '0.9.x',
-      index_file => '/tmp/foo/index',
-      rrd_dir    => '/tmp/foo/rrd',
-      dbfile     => '/tmp/foo/graphite.db',
     }
     EOS
   }
