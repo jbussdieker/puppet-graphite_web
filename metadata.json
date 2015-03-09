@@ -1,6 +1,6 @@
 {
   "name": "jbussdieker-graphite_web",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": "Joshua Bussdieker",
   "license": "MIT",
   "summary": "Puppet Graphite management module",
