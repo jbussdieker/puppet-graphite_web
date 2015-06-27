@@ -27,7 +27,7 @@ class graphite_web::vhost($http_server_type = 'nginx') {
         'plugins'   => 'python',
       },
       notify  => Service['uwsgi'],
-      require => File["${prefix}/conf/graphite.wsgi"],
+      require => File["${graphite_web::prefix}/conf/graphite.wsgi"],
     }
 
   }
