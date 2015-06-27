@@ -4,7 +4,7 @@ class graphite_web(
   $prefix = '/opt/graphite',
   $source = 'https://github.com/graphite-project/graphite-web.git',
   $source_path = '/usr/local/src/graphite-web',
-  $revision = 'master',
+  $revision = '0.9.x',
   $data_dirs = undef,
   $cluster_servers = undef,
   $carbonlink_hosts = undef,
@@ -16,20 +16,6 @@ class graphite_web(
   $user = 'www-data',
 ) {
 
-  include uwsgi
-
-  class { 'nginx':
-    manage_repo => false,
-  }
-
-  nginx::resource::vhost { 'graphite':
-    listen_port         => '8080',
-    location_custom_cfg => {
-      'uwsgi_pass' => '127.0.0.1:8081',
-      'include'    => 'uwsgi_params',
-    },
-  }
-->
   package { 'python-cairo': }
 ->
   package { 'python-django': }
@@ -89,20 +75,6 @@ class graphite_web(
     group   => $user,
     mode    => '0644',
     require => Exec['create_database'],
-  }
-
-  uwsgi::manage_app { 'graphite':
-    ensure  => 'present',
-    uid     => $user,
-    gid     => $user,
-    config  => {
-      'socket'    => ':8081',
-      'processes' => 4,
-      'wsgi-file' => '/opt/graphite/conf/graphite.wsgi',
-      'plugins'   => 'python',
-    },
-    notify  => Service['uwsgi'],
-    require => File["${prefix}/conf/graphite.wsgi"],
   }
 
 }
