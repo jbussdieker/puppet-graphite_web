@@ -1,14 +1,16 @@
 source 'https://rubygems.org'
 
 group :development, :unit_tests do
-  gem 'rspec-puppet'
+  gem 'rspec-core', '3.1.7', :require => false
   gem 'simplecov', :require => false
-  gem 'puppetlabs_spec_helper'
+  gem 'puppetlabs_spec_helper', :require => false
+  gem 'metadata-json-lint'
 end
 
 group :system_tests do
   gem 'beaker-rspec', :require => false
   gem 'serverspec', :require => false
+  gem 'beaker-puppet_install_helper', :require => false
 end
 
 if facterversion = ENV['FACTER_GEM_VERSION']

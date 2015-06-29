@@ -71,7 +71,7 @@ class graphite_web(
   }
 
   exec { 'create_database':
-    command     => "/usr/bin/django-admin syncdb --settings=graphite.settings --noinput",
+    command     => '/usr/bin/django-admin syncdb --settings=graphite.settings --noinput',
     environment => "PYTHONPATH=${prefix}/webapp",
     creates     => $dbfile,
     require     => File["${prefix}/webapp/graphite/local_settings.py"],

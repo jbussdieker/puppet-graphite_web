@@ -18,8 +18,8 @@ class graphite_web::vhost($http_server_type = 'nginx') {
 
     uwsgi::manage_app { 'graphite':
       ensure  => 'present',
-      uid     => $user,
-      gid     => $user,
+      uid     => $::graphite_web::user,
+      gid     => $::graphite_web::user,
       config  => {
         'socket'    => ':8081',
         'processes' => 4,

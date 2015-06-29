@@ -13,7 +13,7 @@ describe 'graphite_web::vhost' do
 
     context '14.04' do
       let(:operatingsystemmajrelease) { '14.04' }
-      it { should have_resource_count(12) }
+      it { should have_resource_count(51) }
     end
   end
 end
