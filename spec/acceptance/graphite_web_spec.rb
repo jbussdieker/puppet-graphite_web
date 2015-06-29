@@ -5,6 +5,8 @@ describe 'graphite_web class' do
   let(:revision) do
     if fact('operatingsystem') == "Ubuntu" && fact('operatingsystemmajrelease') == "12.04"
       "0.9.12"
+    elsif fact('operatingsystem') == "Debian" && fact('operatingsystemmajrelease') == "6"
+      "0.9.12"
     else
       "0.9.x"
     end
