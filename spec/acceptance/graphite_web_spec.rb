@@ -4,21 +4,13 @@ describe 'graphite_web class' do
   let(:prefix) { "/opt/graphite" }
   let(:manifest) {
     <<-EOS
-    class { 'whisper':
-      ensure => '0.9.x',
-    }
-
-    class { 'carbon':
-      revision => '0.9.x',
-      caches   => {
-        'a' => {
-        },
-      },
-    }
+    include carbon
 
     class { 'graphite_web':
       revision   => '0.9.x',
     }
+
+    include graphite_web::vhost
     EOS
   }
 

@@ -23,11 +23,12 @@ class graphite_web::vhost($http_server_type = 'nginx') {
       config  => {
         'socket'    => ':8081',
         'processes' => 4,
-        'wsgi-file' => '/opt/graphite/conf/graphite.wsgi',
+        'wsgi-file' => "${::graphite_web::prefix}/conf/graphite.wsgi",
         'plugins'   => 'python',
+        'logto'     => "${::graphite_web::prefix}/storage/log/webapp/uwsgi.log",
       },
       notify  => Service['uwsgi'],
-      require => File["${graphite_web::prefix}/conf/graphite.wsgi"],
+      require => File["${::graphite_web::prefix}/conf/graphite.wsgi"],
     }
 
   }

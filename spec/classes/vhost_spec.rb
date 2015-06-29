@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'graphite_web' do
+describe 'graphite_web::vhost' do
   let(:facts) do
     {
       :operatingsystem => operatingsystem,
