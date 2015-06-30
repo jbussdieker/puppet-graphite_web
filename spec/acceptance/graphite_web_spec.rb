@@ -13,6 +13,8 @@ describe 'graphite_web class' do
   end
   let(:manifest) {
     <<-EOS
+    include whisper
+
     include carbon
 
     class { 'graphite_web':
