@@ -1,4 +1,4 @@
-class graphite_web::vhost($http_server_type = 'nginx') {
+class graphite_web::vhost($http_server_type = 'apache') {
 
   if $http_server_type == 'nginx' {
 
@@ -30,6 +30,33 @@ class graphite_web::vhost($http_server_type = 'nginx') {
       notify  => Service['uwsgi'],
       require => File["${::graphite_web::prefix}/conf/graphite.wsgi"],
     }
+
+  } elsif $http_server_type == 'apache' {
+
+    class { 'apache':
+    }
+
+    apache::vhost { 'graphite':
+      port                        => '8080',
+      docroot                     => "${::graphite_web::prefix}/webapp",
+      wsgi_application_group      => '%{GLOBAL}',
+      wsgi_daemon_process         => 'graphite',
+      wsgi_daemon_process_options => {
+        processes          => '2',
+        threads            => '15',
+        display-name       => '%{GROUP}',
+        inactivity-timeout => 120,
+      },
+      wsgi_import_script          => "${::graphite_web::prefix}/conf/graphite.wsgi",
+      wsgi_import_script_options  => {
+        process-group     => 'graphite',
+        application-group => '%{GLOBAL}'
+      },
+      wsgi_process_group          => 'graphite',
+      wsgi_script_aliases         => { '/' => "${::graphite_web::prefix}/conf/graphite.wsgi" },
+    }
+
+  } else {
 
   }
 
