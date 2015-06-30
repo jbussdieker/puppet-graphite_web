@@ -7,5 +7,6 @@ HOSTS:
     box_url: http://puppet-vagrant-boxes.puppetlabs.com/debian-73-x64-virtualbox-nocm.box
     hypervisor: vagrant
 CONFIG:
-  log_level: info
+  log_level: warn
+  quiet: true
   type: git

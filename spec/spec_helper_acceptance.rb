@@ -1,17 +1,12 @@
-require 'beaker-rspec'
+require 'beaker-rspec/spec_helper'
+require 'beaker-rspec/helpers/serverspec'
+require 'beaker/puppet_install_helper'
 
-unless ENV["BEAKER_provision"] == "no"
-  foss_opts = { :default_action => 'gem_install' }
-
-  install_puppet(foss_opts)
-end
+run_puppet_install_helper
 
 RSpec.configure do |c|
   # Project root
   proj_root = File.expand_path(File.join(File.dirname(__FILE__), '..'))
-
-  # Readable test descriptions
-  c.formatter = :documentation
 
   # Configure all nodes in nodeset
   c.before :suite do
