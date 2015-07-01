@@ -2,6 +2,7 @@ require 'spec_helper_acceptance'
 
 describe 'graphite_web class' do
   let(:prefix) { "/opt/graphite" }
+
   let(:revision) do
     if fact('operatingsystem') == "Ubuntu" && fact('operatingsystemmajrelease') == "12.04"
       "0.9.12"
@@ -11,6 +12,7 @@ describe 'graphite_web class' do
       "0.9.x"
     end
   end
+
   let(:manifest) {
     <<-EOS
     include whisper
@@ -21,7 +23,9 @@ describe 'graphite_web class' do
       revision   => '#{revision}',
     }
 
-    include graphite_web::vhost
+    class { 'graphite_web::vhost':
+      http_server_type => 'apache',
+    }
     EOS
   }
 

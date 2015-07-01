@@ -1,4 +1,4 @@
-class graphite_web::vhost($http_server_type = 'apache') {
+class graphite_web::vhost($http_server_type = 'nginx') {
 
   if $http_server_type == 'nginx' {
 
