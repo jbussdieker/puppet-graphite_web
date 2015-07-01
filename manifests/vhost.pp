@@ -53,7 +53,9 @@ class graphite_web::vhost($http_server_type = 'apache') {
         application-group => '%{GLOBAL}'
       },
       wsgi_process_group          => 'graphite',
-      wsgi_script_aliases         => { '/' => "${::graphite_web::prefix}/conf/graphite.wsgi" },
+      wsgi_script_aliases         => {
+        '/' => "${::graphite_web::prefix}/conf/graphite.wsgi",
+      },
     }
 
   } else {
